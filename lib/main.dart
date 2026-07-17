@@ -59,11 +59,17 @@ class _XylophoneAppState extends State<XylophoneApp> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             buildKey(),
+
             buildKey(),
+
             buildKey(),
+
             buildKey(),
+
             buildKey(),
+            
             buildKey(),
+
             buildKey(),
           ],
         ),
