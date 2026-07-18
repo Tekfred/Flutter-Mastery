@@ -30,8 +30,8 @@ class _XylophoneAppState extends State<XylophoneApp> {
     player.play(AssetSource('Sounds/note$soundNumber.wav'));
   }
 
-  void buildKey() {
-    Expanded(
+   Expanded buildKey() {
+    return Expanded(
       child: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Colors.red,
