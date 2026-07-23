@@ -30,14 +30,14 @@ class _XylophoneAppState extends State<XylophoneApp> {
     player.play(AssetSource('Sounds/note$soundNumber.wav'));
   }
 
-   Expanded buildKey() {
+  Expanded buildKey({required Color color, required int soundNumber}) {
     return Expanded(
       child: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
+          backgroundColor: color,
           foregroundColor: Colors.white,
-        ), 
-        onPressed: () => soundPlay(1),
+        ),
+        onPressed: () => soundPlay(soundNumber),
         child: const Text('Click Me'),
       ),
     );
@@ -58,19 +58,19 @@ class _XylophoneAppState extends State<XylophoneApp> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            buildKey(),
+            buildKey(color: Colors.red, soundNumber: 1),
 
-            buildKey(),
+            buildKey(color: Colors.orange, soundNumber: 2),
 
-            buildKey(),
+            buildKey(color: Colors.yellow, soundNumber: 3),
 
-            buildKey(),
+            buildKey(color: Colors.green, soundNumber: 4),
 
-            buildKey(),
+            buildKey(color: Colors.blue, soundNumber: 5),
+
+            buildKey(color: Colors.indigo, soundNumber: 6),
             
-            buildKey(),
-
-            buildKey(),
+            buildKey(color: Colors.purple, soundNumber: 7),
           ],
         ),
       ),
