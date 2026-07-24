@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,67 +9,100 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: XylophoneApp());
-  }
-}
-
-class XylophoneApp extends StatefulWidget {
-  const XylophoneApp({super.key});
-
-  @override
-  State<XylophoneApp> createState() => _XylophoneAppState();
-}
-
-class _XylophoneAppState extends State<XylophoneApp> {
-  // 1. VARIABLE
-  final player = AudioPlayer();
-
-  // 2. FUNCTION ✅ correct syntax now
-  void soundPlay(int soundNumber) {
-    player.play(AssetSource('Sounds/note$soundNumber.wav'));
-  }
-
-  Expanded buildKey({required Color color, required int soundNumber}) {
-    return Expanded(
-      child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: color,
-          foregroundColor: Colors.white,
-        ),
-        onPressed: () => soundPlay(soundNumber),
-        child: const Text('Click Me'),
-      ),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: QiuzTnF(),
     );
   }
+}
 
-  // 3. DISPOSE
+class QiuzTnF extends StatefulWidget {
+  const QiuzTnF({super.key});
+
   @override
-  void dispose() {
-    player.dispose();
-    super.dispose();
-  }
+  State<QiuzTnF> createState() => _XylophoneAppState();
+}
 
-  // 4. BUILD
+class _XylophoneAppState extends State<QiuzTnF> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+
+        // ===== APP BAR =====
+        appBar: AppBar(
+          title: const Text('Quiz TnF'),
+          centerTitle: true,
+          titleTextStyle: const TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+          backgroundColor: Colors.black,
+        ),
+
+        // ===== BODY — everything goes here =====
+        body: Column(
           children: [
-            buildKey(color: Colors.red, soundNumber: 1),
+            // QUESTION TEXT — takes up most of the screen
+            Expanded(
+              flex: 6, // ← takes 5 parts of available space
+              child: Center(
+                child: const Text(
+                  'This is where the question text will go',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
 
-            buildKey(color: Colors.orange, soundNumber: 2),
+            // TRUE / FALSE BUTTONS — sits at the bottom
+            Expanded(
+              flex: 1,
+              child: Row(
+                children: [
+                  // TRUE BUTTON
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero, // sharp corners
+                        ),
+                      ),
+                      child: const Text('True', style: TextStyle(fontSize: 18)),
+                    ),
+                  ),
 
-            buildKey(color: Colors.yellow, soundNumber: 3),
-
-            buildKey(color: Colors.green, soundNumber: 4),
-
-            buildKey(color: Colors.blue, soundNumber: 5),
-
-            buildKey(color: Colors.indigo, soundNumber: 6),
-            
-            buildKey(color: Colors.purple, soundNumber: 7),
+                  // FALSE BUTTON
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero, // sharp corners
+                        ),
+                      ),
+                      child: const Text(
+                        'False',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
