@@ -24,6 +24,10 @@ class QiuzTnF extends StatefulWidget {
 }
 
 class _XylophoneAppState extends State<QiuzTnF> {
+  List<Widget> scoreKeeper = [
+    
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,7 +49,6 @@ class _XylophoneAppState extends State<QiuzTnF> {
         // ===== BODY — everything goes here =====
         body: Column(
           children: [
-            // QUESTION TEXT — takes up most of the screen
             Expanded(
               flex: 6, // ← takes 5 parts of available space
               child: Center(
@@ -69,10 +72,17 @@ class _XylophoneAppState extends State<QiuzTnF> {
                   // TRUE BUTTON
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          scoreKeeper.add(
+                            const Icon(Icons.check, color: Colors.green),
+                          );
+                        });
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 25),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero, // sharp corners
                         ),
@@ -85,11 +95,16 @@ class _XylophoneAppState extends State<QiuzTnF> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        
+                        setState(() {
+                          scoreKeeper.add(
+                            const Icon(Icons.close, color: Color.fromARGB(255, 147, 68, 62)),
+                          );
+                        });
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                         foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 25),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero, // sharp corners
                         ),
@@ -102,6 +117,11 @@ class _XylophoneAppState extends State<QiuzTnF> {
                   ),
                 ],
               ),
+            ),
+
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: scoreKeeper,
             ),
           ],
         ),
