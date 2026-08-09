@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+// import 'question.dart';
+import 'quizzbrain.dart';
+
+Quizzbrain quizzbrain = Quizzbrain();
 
 void main() {
   runApp(const MyApp());
@@ -24,9 +28,11 @@ class QiuzTnF extends StatefulWidget {
 }
 
 class _XylophoneAppState extends State<QiuzTnF> {
-  List<Widget> scoreKeeper = [
-    
-  ];
+  List<Widget> scoreKeeper = [];
+
+  // List<bool> answers = [false, true, true];
+
+  int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +58,10 @@ class _XylophoneAppState extends State<QiuzTnF> {
             Expanded(
               flex: 6, // ← takes 5 parts of available space
               child: Center(
-                child: const Text(
-                  'This is where the question text will go',
+                child: Text(
+                  quizzbrain.getQuestionText(questionNumber),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -73,10 +79,17 @@ class _XylophoneAppState extends State<QiuzTnF> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
+                        bool correctAnswer = quizzbrain.getQuestionAnswer(questionNumber);
+
                         setState(() {
-                          scoreKeeper.add(
-                            const Icon(Icons.check, color: Colors.green),
-                          );
+                          if (correctAnswer == true) {
+                            scoreKeeper.add(const Icon(Icons.check, color: Colors.green));
+                          } else {
+                            scoreKeeper.add(const Icon(Icons.close, color: Colors.red));
+                          }
+                          if (questionNumber < quizzbrain.questionBankLength - 1) {
+                            questionNumber++;
+                          }
                         });
                       },
                       style: ElevatedButton.styleFrom(
@@ -95,10 +108,17 @@ class _XylophoneAppState extends State<QiuzTnF> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
+                        bool correctAnswer = quizzbrain.getQuestionAnswer(questionNumber);
+
                         setState(() {
-                          scoreKeeper.add(
-                            const Icon(Icons.close, color: Color.fromARGB(255, 147, 68, 62)),
-                          );
+                          if (correctAnswer == false) {
+                            scoreKeeper.add(const Icon(Icons.check, color: Colors.green));
+                          } else {
+                            scoreKeeper.add(const Icon(Icons.close, color: Colors.red));
+                          }
+                          if (questionNumber < quizzbrain.questionBankLength - 1) {
+                            questionNumber++;
+                          }
                         });
                       },
                       style: ElevatedButton.styleFrom(
